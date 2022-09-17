@@ -19,6 +19,11 @@ public class FaturaController {
     @Autowired
     private FaturaRepository faturaRepository;
 
+    /**
+     * 
+     * @param fatura
+     * @return Insere uma fatura no banco de dados
+     */
     @PostMapping(value = "/")
     public Fatura store(@RequestBody Fatura fatura) {
         return this.faturaRepository.save(fatura);

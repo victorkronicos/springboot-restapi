@@ -2,6 +2,7 @@ package com.victor.springvscode.model;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,7 +25,11 @@ public class ItemFatura {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id_item_fatura;
+
+    @Column(nullable = false, columnDefinition = "varchar(45)")
     private String descricao_item_fatura;
+
+    @Column(nullable = false, columnDefinition = "decimal(10,2)")
     private BigDecimal valor_item_fatura;
 
     @ManyToOne

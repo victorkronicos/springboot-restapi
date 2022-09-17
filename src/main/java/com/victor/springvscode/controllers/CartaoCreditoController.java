@@ -24,8 +24,7 @@ public class CartaoCreditoController {
     CartaoCreditoRepository cartaoCreditoRepository;
 
     /**
-     * @return Returns Saldo from Cartão_Credito
-     *         Refatorar pra trazer só o saldo e o limite
+     * @return Consulta Saldo e Limite de um CartaoCredito
      */
     @GetMapping("/{id}")
     public CartaoCredito filter(@PathVariable int id) {
@@ -33,12 +32,18 @@ public class CartaoCreditoController {
         return cartaoFindById.get();
     }
 
+    /**
+     * @return Armazena um novo CartaoCredito
+     */
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public CartaoCredito store(@RequestBody CartaoCredito cartaoCredito) {
         return this.cartaoCreditoRepository.save(cartaoCredito);
     }
 
+    /**
+     * @return Retorna todos os CartaoCredito armazenados no banco de dados
+     */
     @GetMapping("/")
     public List<CartaoCredito> showAll() {
         return this.cartaoCreditoRepository.findAll();
