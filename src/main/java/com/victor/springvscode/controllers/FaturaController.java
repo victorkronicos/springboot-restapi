@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.victor.springvscode.model.Fatura;
-import com.victor.springvscode.repository.FaturaRepository;
+import com.victor.springvscode.service.FaturaService;
 
 @RestController
 @RequestMapping(value = "/fatura")
 public class FaturaController {
 
     @Autowired
-    private FaturaRepository faturaRepository;
+    FaturaService faturaService;
 
     /**
      * 
@@ -26,7 +26,7 @@ public class FaturaController {
      */
     @PostMapping(value = "/")
     public Fatura store(@RequestBody Fatura fatura) {
-        return this.faturaRepository.save(fatura);
+        return faturaService.addFatura(fatura);
     }
 
     /**

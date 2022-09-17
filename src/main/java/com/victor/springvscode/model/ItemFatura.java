@@ -1,7 +1,5 @@
 package com.victor.springvscode.model;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,10 +28,13 @@ public class ItemFatura {
     private String descricao_item_fatura;
 
     @Column(nullable = false, columnDefinition = "decimal(10,2)")
-    private BigDecimal valor_item_fatura;
+    private Float valor_item_fatura;
 
     @ManyToOne
     @JoinColumn(name = "fatura_id")
-    private Fatura fatura;
+    private Fatura fatura_id;
 
+    @ManyToOne
+    @JoinColumn(name = "id_cartao_credito")
+    private CartaoCredito id_cartao_credito;
 }
