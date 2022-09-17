@@ -22,7 +22,7 @@ public class FaturaService {
 
     public Fatura addFatura(Fatura fatura) {
 
-        if (checkDataFatura(fatura.getData_vencimento())) {
+        if (checkDataFatura(fatura.getDataVencimento())) {
             // Retornar um erro no formato JSON
             return null;
         }

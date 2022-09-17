@@ -54,7 +54,7 @@ public class ItemFaturaService {
      */
     public Boolean checkLimiteCartao(Optional<CartaoCredito> cartaoId, Float itemFatura) {
 
-        if (cartaoId.get().getLimite_cartao_credito() < itemFatura) {
+        if (cartaoId.get().getLimiteCartaoCredito() < itemFatura) {
             return false;
         }
         return true;
