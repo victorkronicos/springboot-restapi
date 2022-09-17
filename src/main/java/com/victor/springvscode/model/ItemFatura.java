@@ -22,19 +22,19 @@ import lombok.ToString;
 public class ItemFatura {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id_item_fatura;
+    private Integer idItemFatura;
 
-    @Column(nullable = false, columnDefinition = "varchar(45)")
-    private String descricao_item_fatura;
+    @Column(name = "descricao_item_fatura", nullable = false, columnDefinition = "varchar(45)")
+    private String descricaoItemFatura;
 
-    @Column(nullable = false, columnDefinition = "decimal(10,2)")
-    private Float valor_item_fatura;
-
-    @ManyToOne
-    @JoinColumn(name = "fatura_id", columnDefinition = "integer")
-    private Fatura fatura_id;
+    @Column(name = "valor_item_fatura", nullable = false, columnDefinition = "decimal(10,2)")
+    private Float valorItemFatura;
 
     @ManyToOne
-    @JoinColumn(name = "id_cartao_credito", columnDefinition = "integer")
-    private CartaoCredito id_cartao_credito;
+    @JoinColumn(name = "fatura_id")
+    private Fatura fatura;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cartao_credito")
+    private CartaoCredito cartaoCredito;
 }

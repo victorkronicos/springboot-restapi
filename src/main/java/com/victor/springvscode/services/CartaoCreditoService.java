@@ -50,7 +50,7 @@ public class CartaoCreditoService {
         Optional<CartaoCredito> cartaoFindById = this.cartaoCreditoRepository.findById(id);
 
         if (cartaoFindById.isPresent()) {
-            return cartaoFindById.get().getId_cartao_credito();
+            return cartaoFindById.get().getIdCartaoCredito();
         }
         return null;
     }

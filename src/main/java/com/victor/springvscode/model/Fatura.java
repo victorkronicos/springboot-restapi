@@ -25,13 +25,13 @@ import lombok.ToString;
 public class Fatura {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id_fatura;
+    private Integer idFatura;
 
-    @Column(nullable = false, columnDefinition = "date")
-    private LocalDate data_vencimento;
+    @Column(name = "data_vencimento", nullable = false, columnDefinition = "date")
+    private LocalDate dataVencimento;
 
     @OneToMany
     @JoinColumn(name = "fatura_id")
-    private List<ItemFatura> item_fatura;
+    private List<ItemFatura> itemFatura;
 
 }

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.victor.springvscode.model.Fatura;
 import com.victor.springvscode.model.ItemFatura;
 import com.victor.springvscode.services.ItemFaturaService;
 
@@ -22,7 +21,7 @@ public class ItemFaturaController {
 
     @PostMapping("/inserir/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ItemFatura store(@PathVariable Fatura id, @RequestBody ItemFatura newItemFatura) {
+    public ItemFatura store(@PathVariable int id, @RequestBody ItemFatura newItemFatura) {
         return itemFaturaService.addItemFatura(id, newItemFatura);
     }
 }

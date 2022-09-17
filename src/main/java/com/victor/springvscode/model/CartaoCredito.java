@@ -22,17 +22,17 @@ import lombok.ToString;
 public class CartaoCredito {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id_cartao_credito;
+    private Integer idCartaoCredito;
 
-    @Column(nullable = false, columnDefinition = "varchar(45)")
-    private String nome_cartao_credito;
+    @Column(name = "nome_cartao_credito", nullable = false, columnDefinition = "varchar(45)")
+    private String nomeCartaoCredito;
 
-    @Column(nullable = false, columnDefinition = "varchar(45)")
+    @Column(name = "bandeiraCartaoCredito", nullable = false, columnDefinition = "varchar(45)")
     private String bandeira_cartao_credito;
 
-    @Column(nullable = false, columnDefinition = "decimal(10,2)")
-    private Float limite_cartao_credito;
+    @Column(name = "limite_cartao_credito", nullable = false, columnDefinition = "decimal(10,2)")
+    private Float limiteCartaoCredito;
 
     @Column(nullable = false, columnDefinition = "decimal(10,2)")
-    private Float saldo_cartao_credito = (float) 0;
+    private Float saldoCartaoCredito = (float) 0;
 }
