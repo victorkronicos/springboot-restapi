@@ -19,6 +19,11 @@ public class ItemFaturaService {
     @Autowired
     CartaoCreditoRepository cartaoCreditoRepository;
 
+    /**
+     * @param id
+     * @param newitemFatura
+     * @return Adiciona um Item à uma fatura
+     */
     public ItemFatura addItemFatura(int id, ItemFatura newitemFatura) {
 
         Optional<CartaoCredito> cartaoId = cartaoCreditoRepository.findById(id);
@@ -27,17 +32,22 @@ public class ItemFaturaService {
             return null;
         }
 
+        checkLimiteCartao(cartaoId, newitemFatura);
+
+        return itemFaturaRepository.save(newitemFatura);
+    }
+
+    /**
+     * @param cartaoId
+     * @param newitemFatura
+     * @return Verifica se o Item inserido, é menor que o limite do Cartão
+     */
+    public Boolean checkLimiteCartao(Optional<CartaoCredito> cartaoId, ItemFatura newitemFatura) {
+
         if (cartaoId.get().getLimite_cartao_credito() < newitemFatura.getValor_item_fatura()) {
             return null;
         }
 
-        // Checar lógica
-        if (cartaoId.get().getSaldo_cartao_credito() > newitemFatura.getValor_item_fatura()) {
-            return null;
-        }
-
-        // validar a data de vencimento da fatura, não adicionar itens a uma fatura
-        // vencida
-        return itemFaturaRepository.save(newitemFatura);
+        return null;
     }
 }
