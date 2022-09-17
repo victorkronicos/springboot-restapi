@@ -1,10 +1,9 @@
-package com.victor.springvscode.service;
+package com.victor.springvscode.services;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import com.victor.springvscode.model.Fatura;
@@ -32,19 +31,24 @@ public class FaturaService {
 
     /**
      * @param id
-     * @return Retorna a soma de valores de uma fatura, através de seu ID
+     * @return Retorna a soma de valores de uma fatura, através do ID_CARTAO_CREDITO
      */
-    public Float getFaturaValue(int id) {
+    public Fatura getFaturaValue(int id) {
 
-        List<ItemFatura> itemsFatura = itemFaturaRepository.findItemFaturaById(id);
-        Float faturaValue = (float) 0;
+        Optional<ItemFatura> itemsFatura = itemFaturaRepository.findById(id);
 
-        for (ItemFatura itemFatura : itemsFatura) {
-            if (itemFatura.getId_item_fatura().equals(id)) {
-                faturaValue += faturaValue;
-            }
+        if (!itemsFatura.isPresent()) {
+            // Retornar em json "Recurso não encontrado"
+            return null;
         }
-        return faturaValue;
+
+        // for (ItemFatura itemFatura : itemsFatura) {
+        // if (itemFatura.getId_item_fatura().equals(id)) {
+        // // faturaValue += faturaValue;
+        // }
+        // }
+
+        return null;
     }
 
     /**

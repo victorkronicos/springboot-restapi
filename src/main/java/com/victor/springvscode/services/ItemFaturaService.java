@@ -1,4 +1,4 @@
-package com.victor.springvscode.service;
+package com.victor.springvscode.services;
 
 import java.util.Optional;
 
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.victor.springvscode.model.CartaoCredito;
+import com.victor.springvscode.model.Fatura;
 import com.victor.springvscode.model.ItemFatura;
 import com.victor.springvscode.repository.CartaoCreditoRepository;
 import com.victor.springvscode.repository.ItemFaturaRepository;
@@ -24,16 +25,19 @@ public class ItemFaturaService {
      * @param newitemFatura
      * @return Adiciona um Item à uma fatura
      */
-    public ItemFatura addItemFatura(int id, ItemFatura newitemFatura) {
+    public ItemFatura addItemFatura(Fatura FaturaId, ItemFatura newitemFatura) {
 
-        Optional<CartaoCredito> cartaoId = cartaoCreditoRepository.findById(id);
+        // Optional<CartaoCredito> cartaoId = cartaoCreditoRepository.findById(id);
 
-        if (!cartaoId.isPresent()) {
-            return null;
-        }
+        // if (!cartaoId.isPresent()) {
+        // return null;
+        // }
 
-        checkLimiteCartao(cartaoId, newitemFatura);
+        // if (checkLimiteCartao(cartaoId, newitemFatura.getValor_item_fatura())) {
+        // return null;
+        // }
 
+        newitemFatura.setFatura_id(FaturaId);
         return itemFaturaRepository.save(newitemFatura);
     }
 
@@ -42,12 +46,11 @@ public class ItemFaturaService {
      * @param newitemFatura
      * @return Verifica se o Item inserido, é menor que o limite do Cartão
      */
-    public Boolean checkLimiteCartao(Optional<CartaoCredito> cartaoId, ItemFatura newitemFatura) {
+    public Boolean checkLimiteCartao(Optional<CartaoCredito> cartaoId, Float itemFatura) {
 
-        if (cartaoId.get().getLimite_cartao_credito() < newitemFatura.getValor_item_fatura()) {
-            return null;
+        if (cartaoId.get().getLimite_cartao_credito() < itemFatura) {
+            return false;
         }
-
-        return null;
+        return true;
     }
 }

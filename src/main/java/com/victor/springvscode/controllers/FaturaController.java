@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.victor.springvscode.model.Fatura;
-import com.victor.springvscode.service.FaturaService;
+import com.victor.springvscode.services.FaturaService;
 
 @RestController
 @RequestMapping(value = "/fatura")
@@ -34,9 +34,8 @@ public class FaturaController {
      * @return Retorna o valor parcial da fatura, caso não esteja vencida
      */
     @GetMapping("/{id}")
-    public Fatura show(@PathVariable("id") Fatura id) {
-
-        return null;
+    public Fatura show(@PathVariable("id") Integer id) {
+        return faturaService.getFaturaValue(id);
     }
 
 }

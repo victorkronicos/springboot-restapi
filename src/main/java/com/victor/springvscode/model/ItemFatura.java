@@ -31,10 +31,10 @@ public class ItemFatura {
     private Float valor_item_fatura;
 
     @ManyToOne
-    @JoinColumn(name = "fatura_id")
+    @JoinColumn(name = "fatura_id", columnDefinition = "integer")
     private Fatura fatura_id;
 
     @ManyToOne
-    @JoinColumn(name = "id_cartao_credito")
+    @JoinColumn(name = "id_cartao_credito", columnDefinition = "integer")
     private CartaoCredito id_cartao_credito;
 }

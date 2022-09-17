@@ -1,7 +1,6 @@
 package com.victor.springvscode.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,22 +13,29 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.victor.springvscode.model.CartaoCredito;
-import com.victor.springvscode.repository.CartaoCreditoRepository;
+import com.victor.springvscode.services.CartaoCreditoService;
 
 @RestController
 @RequestMapping("/cartao-credito")
 public class CartaoCreditoController {
 
     @Autowired
-    CartaoCreditoRepository cartaoCreditoRepository;
+    CartaoCreditoService cartaoCreditoService;
+
+    /**
+     * @return Retorna todos os Cartões de Crédito armazenados no banco de dados
+     */
+    @GetMapping("/")
+    public List<CartaoCredito> show() {
+        return cartaoCreditoService.showAllCartaoCredito();
+    }
 
     /**
      * @return Consulta Saldo e Limite de um CartaoCredito
      */
     @GetMapping("/{id}")
     public CartaoCredito filter(@PathVariable int id) {
-        Optional<CartaoCredito> cartaoFindById = this.cartaoCreditoRepository.findById(id);
-        return cartaoFindById.get();
+        return cartaoCreditoService.showCartaoCreditoById(id);
     }
 
     /**
@@ -38,14 +44,7 @@ public class CartaoCreditoController {
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public CartaoCredito store(@RequestBody CartaoCredito cartaoCredito) {
-        return this.cartaoCreditoRepository.save(cartaoCredito);
+        return cartaoCreditoService.addCartaoCredito(cartaoCredito);
     }
 
-    /**
-     * @return Retorna todos os CartaoCredito armazenados no banco de dados
-     */
-    @GetMapping("/")
-    public List<CartaoCredito> showAll() {
-        return this.cartaoCreditoRepository.findAll();
-    }
 }
