@@ -19,11 +19,6 @@ public class FaturaService {
     ItemFaturaRepository itemFaturaRepository;
 
     public Fatura addFatura(Fatura fatura) {
-
-        // if (checkDataFatura(fatura.getDataVencimento())) {
-        // // Retornar um erro no formato JSON
-        // return null;
-        // }
         return faturaRepository.save(fatura);
     }
 
@@ -32,13 +27,6 @@ public class FaturaService {
      * @return Retorna a soma de valores de uma fatura, através do ID_CARTAO_CREDITO
      */
     public Fatura getFaturaValue(int id) {
-
-        // List<ItemFatura> itens = itemFaturaRepository.findByFatura_faturaId(id);
-
-        // if (itens.isEmpty()) {
-        // return null;
-        // }
-
         return null;
     }
 

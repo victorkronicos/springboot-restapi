@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.victor.springvscode.model.Fatura;
 import com.victor.springvscode.services.FaturaService;
+import com.victor.springvscode.services.ItemFaturaService;
 
 @RestController
 @RequestMapping(value = "/fatura")

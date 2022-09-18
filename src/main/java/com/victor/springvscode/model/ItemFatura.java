@@ -1,13 +1,6 @@
 package com.victor.springvscode.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.victor.springvscode.repository.FaturaRepository;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,13 +37,13 @@ public class ItemFatura {
     private Float valorItemFatura;
 
     @ManyToOne
-    @JsonProperty("fatura_id")
+    @JsonProperty("fatura")
     @JoinColumn(name = "id_fatura")
     private Fatura fatura;
 
     @ManyToOne
-    @JsonProperty("cartao_credito_id")
-    @JoinColumn(name = "cartao_credito_id")
+    @JsonProperty("cartao_credito")
+    @JoinColumn(name = "id_cartao_credito")
     private CartaoCredito cartaoCredito;
 
 }

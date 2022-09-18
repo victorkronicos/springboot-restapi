@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.victor.springvscode.model.CartaoCredito;
 import com.victor.springvscode.services.CartaoCreditoService;
+import com.victor.springvscode.services.ItemFaturaService;
 
 @RestController
 @RequestMapping("/cartao-credito")
