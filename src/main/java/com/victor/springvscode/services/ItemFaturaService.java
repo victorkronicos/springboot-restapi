@@ -29,21 +29,12 @@ public class ItemFaturaService {
      * @param newitemFatura
      * @return Adiciona um Item à uma fatura
      */
-    public ItemFatura addItemFatura(int id, ItemFatura newitemFatura) {
+    public ItemFatura addItemFatura(ItemFatura newitemFatura) {
 
-        List<ItemFatura> itens = itemFaturaRepository.findByFatura_idFatura(id);
-        // List<ItemFatura> cartao = cartaoCreditoRepository.findby;
-
-        if (itens.isEmpty()) {
-
-            return null;
-        }
-
+        // List<ItemFatura> itens =
+        // itemFaturaRepository.findByFatura_idFatura(newitemFatura.getIdItemFatura());
         // if (checkLimiteCartao(cartaoId, newitemFatura.getValor_item_fatura())) {
-        // return null;
-        // }
 
-        // newitemFatura.setFatura_id(fa);
         return itemFaturaRepository.save(newitemFatura);
     }
 

@@ -13,6 +13,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -20,18 +21,20 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table
+@Table(name = "fatura")
 public class Fatura {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_fatura")
     private Integer idFatura;
 
     @Column(name = "data_vencimento", nullable = false, columnDefinition = "date")
     private LocalDate dataVencimento;
 
     @OneToMany
-    @JoinColumn(name = "fatura_id")
+    @JoinColumn(name = "id_fatura")
     private List<ItemFatura> itemFatura;
 
 }

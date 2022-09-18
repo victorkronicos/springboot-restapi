@@ -2,7 +2,6 @@ package com.victor.springvscode.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +18,9 @@ public class ItemFaturaController {
     @Autowired
     private ItemFaturaService itemFaturaService;
 
-    @PostMapping("/inserir/{id}")
+    @PostMapping("/inserir")
     @ResponseStatus(HttpStatus.CREATED)
-    public ItemFatura store(@PathVariable int id, @RequestBody ItemFatura newItemFatura) {
-        return itemFaturaService.addItemFatura(id, newItemFatura);
+    public ItemFatura store(@RequestBody ItemFatura newItemFatura) {
+        return itemFaturaService.addItemFatura(newItemFatura);
     }
 }

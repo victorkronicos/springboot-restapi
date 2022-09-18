@@ -1,13 +1,11 @@
 package com.victor.springvscode.services;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.victor.springvscode.model.Fatura;
-import com.victor.springvscode.model.ItemFatura;
 import com.victor.springvscode.repository.FaturaRepository;
 import com.victor.springvscode.repository.ItemFaturaRepository;
 
@@ -22,10 +20,10 @@ public class FaturaService {
 
     public Fatura addFatura(Fatura fatura) {
 
-        if (checkDataFatura(fatura.getDataVencimento())) {
-            // Retornar um erro no formato JSON
-            return null;
-        }
+        // if (checkDataFatura(fatura.getDataVencimento())) {
+        // // Retornar um erro no formato JSON
+        // return null;
+        // }
         return faturaRepository.save(fatura);
     }
 
@@ -35,17 +33,10 @@ public class FaturaService {
      */
     public Fatura getFaturaValue(int id) {
 
-        Optional<ItemFatura> itemsFatura = itemFaturaRepository.findById(id);
+        // List<ItemFatura> itens = itemFaturaRepository.findByFatura_faturaId(id);
 
-        if (!itemsFatura.isPresent()) {
-            // Retornar em json "Recurso não encontrado"
-            return null;
-        }
-
-        // for (ItemFatura itemFatura : itemsFatura) {
-        // if (itemFatura.getId_item_fatura().equals(id)) {
-        // // faturaValue += faturaValue;
-        // }
+        // if (itens.isEmpty()) {
+        // return null;
         // }
 
         return null;

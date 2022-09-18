@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name = "item_fatura")
 public class ItemFatura {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +31,7 @@ public class ItemFatura {
     private Float valorItemFatura;
 
     @ManyToOne
-    @JoinColumn(name = "fatura_id")
+    @JoinColumn(name = "id_fatura")
     private Fatura fatura;
 
     @ManyToOne
