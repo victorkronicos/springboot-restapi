@@ -3,6 +3,8 @@ package com.victor.springvscode.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,13 +29,16 @@ import lombok.ToString;
 public class Fatura {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty("id_fatura")
     @Column(name = "id_fatura")
     private Integer idFatura;
 
+    @JsonProperty("data_vencimento")
     @Column(name = "data_vencimento", nullable = false, columnDefinition = "date")
     private LocalDate dataVencimento;
 
     @OneToMany
+    @JsonProperty("id_item_fatura")
     @JoinColumn(name = "id_fatura")
     private List<ItemFatura> itemFatura;
 

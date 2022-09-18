@@ -1,6 +1,5 @@
 package com.victor.springvscode.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +29,6 @@ public class ItemFaturaService {
      * @return Adiciona um Item à uma fatura
      */
     public ItemFatura addItemFatura(ItemFatura newitemFatura) {
-
-        // List<ItemFatura> itens =
-        // itemFaturaRepository.findByFatura_idFatura(newitemFatura.getIdItemFatura());
-        // if (checkLimiteCartao(cartaoId, newitemFatura.getValor_item_fatura())) {
-
         return itemFaturaRepository.save(newitemFatura);
     }
 
