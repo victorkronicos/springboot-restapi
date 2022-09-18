@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.victor.springvscode.model.ItemFatura;
-import com.victor.springvscode.services.CartaoCreditoService;
-import com.victor.springvscode.services.FaturaService;
 import com.victor.springvscode.services.ItemFaturaService;
 
 @RestController

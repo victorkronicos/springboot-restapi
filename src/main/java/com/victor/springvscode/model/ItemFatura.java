@@ -38,12 +38,12 @@ public class ItemFatura {
 
     @ManyToOne
     @JsonProperty("fatura")
-    @JoinColumn(name = "id_fatura")
+    @JoinColumn(name = "id_fatura", nullable = false, columnDefinition = "decimal(10,2)")
     private Fatura fatura;
 
     @ManyToOne
     @JsonProperty("cartao_credito")
-    @JoinColumn(name = "id_cartao_credito")
+    @JoinColumn(name = "id_cartao_credito", nullable = false, columnDefinition = "decimal(10,2)")
     private CartaoCredito cartaoCredito;
 
 }
