@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.victor.springvscode.dto.ItemFaturaDTO;
+import com.victor.springvscode.model.CartaoCredito;
 import com.victor.springvscode.model.ItemFatura;
 import com.victor.springvscode.repository.CartaoCreditoRepository;
 import com.victor.springvscode.repository.FaturaRepository;
@@ -30,16 +31,15 @@ public class ItemFaturaService {
      */
 
     public ItemFaturaDTO addNew(ItemFatura itemFatura) {
+        int idFatura = itemFatura.getFatura().getIdFatura();
 
-        if (!checkVencimentoFatura(itemFatura.getFatura().getIdFatura())) {
+        if (!checkVencimentoFatura(idFatura)) {
             return null;
         }
 
-        if (!checkLimiteCartao(
-                itemFatura.getCartaoCredito().getIdCartaoCredito(),
-                itemFatura.getValorItemFatura())) {
-            return null;
-        }
+        // Float valorItemFatura = (float) itemFatura.getValorItemFatura();
+
+        // cartaoCreditoRepository.findById(1);
 
         ItemFaturaDTO dto = new ItemFaturaDTO(itemFatura);
         return dto;
@@ -59,34 +59,4 @@ public class ItemFaturaService {
         return vencimentoFatura.isAfter(LocalDate.now());
     }
 
-    /**
-     * 
-     * @param itemFatura
-     * @return Verifica se o Cartão tem o limite necessário
-     */
-    public Boolean checkLimiteCartao(int idCartaoCredito, float valorItemFatura) {
-
-        Float limiteCartao = cartaoCreditoRepository
-                .findById(idCartaoCredito)
-                .get()
-                .getLimiteCartaoCredito();
-
-        // Se o limite for maior que o valor do item
-        if (limiteCartao > valorItemFatura) {
-            // Subtrai do limite o valor do respectivo item
-            cartaoCreditoRepository
-                    .findById(idCartaoCredito)
-                    .get()
-                    .setLimiteCartaoCredito((float) limiteCartao - valorItemFatura);
-
-            // Atribui valor da compra ao saldo do cartão de crédito
-            cartaoCreditoRepository.findById(idCartaoCredito)
-                    .get()
-                    .setSaldoCartaoCredito(++valorItemFatura);
-
-            return true;
-        }
-
-        return false;
-    }
 }

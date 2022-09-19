@@ -24,6 +24,9 @@ public class ItemFaturaController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ItemFaturaDTO> addNew(@RequestBody ItemFatura itemFatura) {
         ItemFaturaDTO response = itemFaturaService.addNew(itemFatura);
-        return new ResponseEntity<ItemFaturaDTO>(response, HttpStatus.CREATED);
+        if (response != null) {
+            return new ResponseEntity<ItemFaturaDTO>(response, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<ItemFaturaDTO>(response, HttpStatus.BAD_REQUEST);
     }
 }
