@@ -1,7 +1,7 @@
 package com.victor.springvscode.services;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,47 +21,33 @@ public class CartaoCreditoService {
      * @param cartaoCredito
      * @return Adiciona um novo cartão de crédito ao banco de dados
      */
-    public CartaoCredito addCartaoCredito(CartaoCredito cartaoCredito) {
-        return this.cartaoCreditoRepository.save(cartaoCredito);
+    public CartaoCreditoDTO addNew(CartaoCredito cartaoCredito) {
+        cartaoCreditoRepository.save(cartaoCredito);
+        CartaoCreditoDTO dto = new CartaoCreditoDTO(cartaoCredito);
+        return dto;
     }
 
     /**
      * 
      * @return Mostra todos os cartões de crédito cadastrados no banco de dados
      */
-    public List<CartaoCredito> showAllCartaoCredito() {
+    public List<CartaoCreditoDTO> showAll() {
+        List<CartaoCreditoDTO> dtos = new ArrayList<>();
 
-        return cartaoCreditoRepository.findAll();
+        List<CartaoCredito> cartoes = cartaoCreditoRepository.findAll();
+
+        cartoes.stream().forEach(cartao -> {
+            CartaoCreditoDTO dto = new CartaoCreditoDTO(cartao);
+            dtos.add(dto);
+        });
+
+        return dtos;
     }
 
     public CartaoCreditoDTO findById(int id) {
         CartaoCredito cartao = cartaoCreditoRepository.findById(id).get();
-
         CartaoCreditoDTO dto = new CartaoCreditoDTO(cartao);
         return dto;
-    }
-
-    public CartaoCredito showCartaoCreditoById(int id) {
-        Optional<CartaoCredito> cartaoFindById = this.cartaoCreditoRepository.findById(id);
-
-        if (cartaoFindById.isPresent()) {
-            return cartaoFindById.get();
-        }
-        return null;
-    }
-
-    /**
-     * 
-     * @param id
-     * @return Verifica se o ID informado existe
-     */
-    public Integer getCartaoCreditoById(int id) {
-        Optional<CartaoCredito> cartaoFindById = this.cartaoCreditoRepository.findById(id);
-
-        if (cartaoFindById.isPresent()) {
-            return cartaoFindById.get().getIdCartaoCredito();
-        }
-        return null;
     }
 
 }

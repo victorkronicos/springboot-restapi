@@ -27,8 +27,8 @@ public class CartaoCreditoController {
      * @return Retorna todos os Cartões de Crédito armazenados no banco de dados
      */
     @GetMapping("/")
-    public List<CartaoCredito> show() {
-        return cartaoCreditoService.showAllCartaoCredito();
+    public List<CartaoCreditoDTO> showAll() {
+        return cartaoCreditoService.showAll();
     }
 
     /**
@@ -44,8 +44,8 @@ public class CartaoCreditoController {
      */
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public CartaoCredito store(@RequestBody CartaoCredito cartaoCredito) {
-        return cartaoCreditoService.addCartaoCredito(cartaoCredito);
+    public CartaoCreditoDTO addNew(@RequestBody CartaoCredito cartaoCredito) {
+        return cartaoCreditoService.addNew(cartaoCredito);
     }
 
 }
