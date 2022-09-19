@@ -24,7 +24,7 @@ import lombok.ToString;
 public class CartaoCredito {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonProperty("id_cartao_credito")
+
     @Column(name = "id_cartao_credito")
     private Integer idCartaoCredito;
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.victor.springvscode.dto.CartaoCreditoDTO;
 import com.victor.springvscode.model.CartaoCredito;
 import com.victor.springvscode.services.CartaoCreditoService;
 
@@ -34,8 +35,8 @@ public class CartaoCreditoController {
      * @return Consulta Saldo e Limite de um CartaoCredito
      */
     @GetMapping("/{id}")
-    public CartaoCredito filter(@PathVariable int id) {
-        return cartaoCreditoService.showCartaoCreditoById(id);
+    public CartaoCreditoDTO findById(@PathVariable int id) {
+        return cartaoCreditoService.findById(id);
     }
 
     /**

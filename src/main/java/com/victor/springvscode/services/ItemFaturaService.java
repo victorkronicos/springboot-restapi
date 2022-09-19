@@ -42,7 +42,7 @@ public class ItemFaturaService {
 
             // Subtrai do limite do cartão de crédito o valor da compra
             cartaoCreditoRepository.findById(idCartaoCredito).get()
-                    .setLimiteCartaoCredito(--valorItemFatura);
+                    .setLimiteCartaoCredito(limiteCartaoCredito - valorItemFatura);
 
             // Atribui valor da compra ao saldo do cartão de crédito
             cartaoCreditoRepository.findById(idCartaoCredito).get()
