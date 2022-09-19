@@ -1,7 +1,8 @@
 package com.victor.springvscode.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.victor.springvscode.dto.FaturaDTO;
 import com.victor.springvscode.model.Fatura;
 import com.victor.springvscode.services.FaturaService;
 
@@ -25,8 +27,9 @@ public class FaturaController {
      * @return Insere uma fatura no banco de dados
      */
     @PostMapping(value = "/")
-    public Fatura store(@RequestBody Fatura fatura) {
-        return faturaService.addFatura(fatura);
+    public ResponseEntity<FaturaDTO> addNew(@RequestBody Fatura fatura) {
+        FaturaDTO response = faturaService.addNew(fatura);
+        return new ResponseEntity<FaturaDTO>(response, HttpStatus.CREATED);
     }
 
     /**
@@ -34,8 +37,8 @@ public class FaturaController {
      * @return Retorna o valor parcial da fatura, caso não esteja vencida
      */
     @GetMapping("/{id}")
-    public Fatura show(@PathVariable("id") Integer id) {
-        return faturaService.getFaturaValue(id);
+    public FaturaDTO findById(@PathVariable("id") Integer id) {
+        return faturaService.findById(id);
     }
 
 }

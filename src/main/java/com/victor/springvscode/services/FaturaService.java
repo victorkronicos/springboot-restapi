@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.victor.springvscode.dto.FaturaDTO;
 import com.victor.springvscode.model.Fatura;
 import com.victor.springvscode.repository.FaturaRepository;
 import com.victor.springvscode.repository.ItemFaturaRepository;
@@ -18,24 +19,22 @@ public class FaturaService {
     @Autowired
     ItemFaturaRepository itemFaturaRepository;
 
-    public Fatura addFatura(Fatura fatura) {
-        return faturaRepository.save(fatura);
+    public FaturaDTO addNew(Fatura fatura) {
+        faturaRepository.save(fatura);
+        FaturaDTO dto = new FaturaDTO(fatura);
+        return dto;
     }
 
     /**
      * @param id
-     * @return Retorna a soma de valores de uma fatura, através do ID_CARTAO_CREDITO
+     * @return Consulta de valor parcial de uma fatura em aberto passando o
+     *         ID_FATURA como
+     *         parâmetro
+     *         • Validar a data de vencimento para saber se a fatura está em aberto,
+     *         se sim
+     *         retornar o valor parcial da fatura
      */
-    public Fatura getFaturaValue(int id) {
+    public FaturaDTO findById(int id) {
         return null;
-    }
-
-    /**
-     * 
-     * @param dataVencimentoFatura
-     * @return Verifica se a data de vencimento da fatura está vencida
-     */
-    public Boolean checkDataFatura(LocalDate dataVencimentoFatura) {
-        return dataVencimentoFatura.isAfter(LocalDate.now());
     }
 }

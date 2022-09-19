@@ -2,6 +2,7 @@ package com.victor.springvscode.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,7 @@ public class CartaoCreditoService {
 
     public CartaoCreditoDTO findById(int id) {
         CartaoCredito cartao = cartaoCreditoRepository.findById(id).get();
+
         CartaoCreditoDTO dto = new CartaoCreditoDTO(cartao);
         return dto;
     }
