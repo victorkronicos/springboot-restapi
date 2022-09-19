@@ -14,15 +14,9 @@ public @Data class FaturaDTO {
     @JsonProperty("vencimento")
     private LocalDate dataVencimento;
 
-    // @JsonProperty("status")
-    // private String status = "em aberto";
-
     public FaturaDTO(Fatura fatura) {
         idFatura = fatura.getIdFatura();
         dataVencimento = fatura.getDataVencimento();
-
-        // if (fatura.getDataVencimento().isBefore(LocalDate.now())) {
-        // status = "vencida";
-        // }
     }
+
 }

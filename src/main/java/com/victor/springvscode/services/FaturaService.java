@@ -1,7 +1,5 @@
 package com.victor.springvscode.services;
 
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +33,13 @@ public class FaturaService {
      *         retornar o valor parcial da fatura
      */
     public FaturaDTO findById(int id) {
+        // List<ItemFatura> itensFaturas =
+        // itemFaturaRepository.findByFatura_idFatura(id);
+
+        // itensFaturas.stream().forEach(itemFatura -> {
+
+        // });
+
         return null;
     }
 }

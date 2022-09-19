@@ -10,7 +10,7 @@ import com.victor.springvscode.model.ItemFatura;
 @Repository
 public interface ItemFaturaRepository extends JpaRepository<ItemFatura, Integer> {
 
-    public ItemFatura findByFatura_idFatura(Integer id);
+    public List<ItemFatura> findByFatura_idFatura(Integer id);
 
     public List<ItemFatura> findByCartaoCredito_idCartaoCredito(Integer id);
 

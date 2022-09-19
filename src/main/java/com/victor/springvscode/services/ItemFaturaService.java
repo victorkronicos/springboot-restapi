@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.victor.springvscode.dto.ItemFaturaDTO;
 import com.victor.springvscode.model.ItemFatura;
 import com.victor.springvscode.repository.CartaoCreditoRepository;
 import com.victor.springvscode.repository.FaturaRepository;
@@ -23,35 +25,68 @@ public class ItemFaturaService {
 
     /**
      * @param id
-     * @param newitemFatura
+     * @param itemFatura
      * @return Adiciona um Item à uma fatura
      */
-    public ItemFatura addItemFatura(ItemFatura newitemFatura) {
-        Integer idCartaoCredito = newitemFatura.getCartaoCredito().getIdCartaoCredito();
-        Integer idFatura = newitemFatura.getFatura().getIdFatura();
 
-        Float valorItemFatura = newitemFatura.getValorItemFatura();
-        Float limiteCartaoCredito = cartaoCreditoRepository.findById(idCartaoCredito).get().getLimiteCartaoCredito();
+    public ItemFaturaDTO addNew(ItemFatura itemFatura) {
 
-        LocalDate vencimentoFatura = faturaRepository.findById(idFatura).get().getDataVencimento();
-
-        // Verifica se o cartão de credito tem o limite necessário
-        // E se a data do vencimento da fatura está vencida
-        if (limiteCartaoCredito > valorItemFatura &&
-                vencimentoFatura.isAfter(LocalDate.now())) {
-
-            // Subtrai do limite do cartão de crédito o valor da compra
-            cartaoCreditoRepository.findById(idCartaoCredito).get()
-                    .setLimiteCartaoCredito(limiteCartaoCredito - valorItemFatura);
-
-            // Atribui valor da compra ao saldo do cartão de crédito
-            cartaoCreditoRepository.findById(idCartaoCredito).get()
-                    .setSaldoCartaoCredito(++valorItemFatura);
-
-            return itemFaturaRepository.save(newitemFatura);
+        if (!checkVencimentoFatura(itemFatura.getFatura().getIdFatura())) {
+            return null;
         }
 
-        return null;
+        if (!checkLimiteCartao(
+                itemFatura.getCartaoCredito().getIdCartaoCredito(),
+                itemFatura.getValorItemFatura())) {
+            return null;
+        }
+
+        ItemFaturaDTO dto = new ItemFaturaDTO(itemFatura);
+        return dto;
     }
 
+    /**
+     * 
+     * @param itemFatura
+     * @return Verifica o vencimento da fatura se é maior que a data atual
+     */
+    public Boolean checkVencimentoFatura(int idFatura) {
+        LocalDate vencimentoFatura = faturaRepository
+                .findById(idFatura)
+                .get()
+                .getDataVencimento();
+
+        return vencimentoFatura.isAfter(LocalDate.now());
+    }
+
+    /**
+     * 
+     * @param itemFatura
+     * @return Verifica se o Cartão tem o limite necessário
+     */
+    public Boolean checkLimiteCartao(int idCartaoCredito, float valorItemFatura) {
+
+        Float limiteCartao = cartaoCreditoRepository
+                .findById(idCartaoCredito)
+                .get()
+                .getLimiteCartaoCredito();
+
+        // Se o limite for maior que o valor do item
+        if (limiteCartao > valorItemFatura) {
+            // Subtrai do limite o valor do respectivo item
+            cartaoCreditoRepository
+                    .findById(idCartaoCredito)
+                    .get()
+                    .setLimiteCartaoCredito((float) limiteCartao - valorItemFatura);
+
+            // Atribui valor da compra ao saldo do cartão de crédito
+            cartaoCreditoRepository.findById(idCartaoCredito)
+                    .get()
+                    .setSaldoCartaoCredito(++valorItemFatura);
+
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -37,8 +37,9 @@ public class FaturaController {
      * @return Retorna o valor parcial da fatura, caso não esteja vencida
      */
     @GetMapping("/{id}")
-    public FaturaDTO findById(@PathVariable("id") Integer id) {
-        return faturaService.findById(id);
+    public ResponseEntity<FaturaDTO> findById(@PathVariable("id") Integer id) {
+        FaturaDTO response = faturaService.findById(id);
+        return new ResponseEntity<FaturaDTO>(response, HttpStatus.OK);
     }
 
 }
