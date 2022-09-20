@@ -1,6 +1,5 @@
 package com.victor.springvscode.repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +10,7 @@ import com.victor.springvscode.model.ItemFatura;
 @Repository
 public interface ItemFaturaRepository extends JpaRepository<ItemFatura, Integer> {
 
-    public List<ItemFatura> findByFatura_idFatura(Integer id);
+    public ItemFatura findByFatura_idFatura(Integer id);
 
     public List<ItemFatura> findByCartaoCredito_idCartaoCredito(Integer id);
 }

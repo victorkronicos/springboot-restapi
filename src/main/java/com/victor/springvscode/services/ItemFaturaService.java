@@ -1,12 +1,16 @@
 package com.victor.springvscode.services;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.victor.springvscode.dto.ItemFaturaDTO;
+import com.victor.springvscode.model.CartaoCredito;
+import com.victor.springvscode.model.Fatura;
 import com.victor.springvscode.model.ItemFatura;
 import com.victor.springvscode.repository.CartaoCreditoRepository;
 import com.victor.springvscode.repository.FaturaRepository;
@@ -31,13 +35,17 @@ public class ItemFaturaService {
      */
 
     public ItemFaturaDTO addNew(ItemFatura itemFatura) {
-        // System.out.println(itemFatura);
+        int idFatura = itemFatura.getFatura().getIdFatura();
+        int idCartao = itemFatura.getCartaoCredito().getIdCartaoCredito();
+        BigDecimal limiteCartao = getLimiteCartao(idCartao);
 
-        // if (!checkVencimentoFatura(vencimentoFatura)) {
-        // return null;
-        // }
+        if (!checkVencimentoFatura(idFatura)) {
+            return null;
+        }
 
-        // int idCartao = itemFatura.getCartaoCredito().getIdCartaoCredito();
+        if (limiteCartao.compareTo(itemFatura.getValorItemFatura()) == -1) {
+            return null;
+        }
 
         itemFaturaRepository.save(itemFatura);
 
@@ -46,26 +54,28 @@ public class ItemFaturaService {
     }
 
     /**
-     * 
-     * @param itemFatura
      * @return Verifica o vencimento da fatura se é maior que a data atual
      */
-    public Boolean checkVencimentoFatura(LocalDate vencimentoFatura) {
-        return vencimentoFatura.isAfter(LocalDate.now());
+    public Boolean checkVencimentoFatura(int id) {
+        Optional<Fatura> fatura = faturaRepository.findById(id);
+        if (!fatura.isPresent()) {
+            return null;
+        }
+        return fatura.get().getDataVencimento().isAfter(LocalDate.now());
+    }
+
+    /**
+     * @return Consulta o Limite do cartão através do seu ID
+     */
+    public BigDecimal getLimiteCartao(int idCartao) {
+        Optional<CartaoCredito> cartao = cartaoCreditoRepository.findById(idCartao);
+        if (!cartao.isPresent()) {
+            return null;
+        }
+        return cartao.get().getLimiteCartaoCredito();
     }
 
     public List<ItemFaturaDTO> findAll() {
-        // List<ItemFaturaDTO> dtos = new ArrayList<>();
-
-        // int x = 2;
-
-        // List<ItemFatura> itens = itemFaturaRepository.findByFatura_idFatura(x);
-
-        // itens.stream().forEach(item -> {
-        // ItemFaturaDTO dto = new ItemFaturaDTO(item);
-        // dtos.add(dto);
-        // });
-
         return null;
     }
 
