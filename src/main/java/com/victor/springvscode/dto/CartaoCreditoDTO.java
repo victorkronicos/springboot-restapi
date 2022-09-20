@@ -1,5 +1,7 @@
 package com.victor.springvscode.dto;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.victor.springvscode.model.CartaoCredito;
 
@@ -16,10 +18,10 @@ public @Data class CartaoCreditoDTO {
     private String bandeiraCartaoCredito;
 
     @JsonProperty("limite")
-    private Float limiteCartaoCredito;
+    private BigDecimal limiteCartaoCredito;
 
     @JsonProperty("saldo")
-    private Float saldoCartaoCredito;
+    private BigDecimal saldoCartaoCredito;
 
     public CartaoCreditoDTO(CartaoCredito cartaoCredito) {
         idCartaoCredito = cartaoCredito.getIdCartaoCredito();

@@ -1,12 +1,14 @@
 package com.victor.springvscode.services;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.victor.springvscode.dto.ItemFaturaDTO;
-import com.victor.springvscode.model.CartaoCredito;
 import com.victor.springvscode.model.ItemFatura;
 import com.victor.springvscode.repository.CartaoCreditoRepository;
 import com.victor.springvscode.repository.FaturaRepository;
@@ -32,14 +34,15 @@ public class ItemFaturaService {
 
     public ItemFaturaDTO addNew(ItemFatura itemFatura) {
         int idFatura = itemFatura.getFatura().getIdFatura();
+        // int idCartao = itemFatura.getCartaoCredito().getIdCartaoCredito();
 
         if (!checkVencimentoFatura(idFatura)) {
             return null;
         }
 
-        // Float valorItemFatura = (float) itemFatura.getValorItemFatura();
+        System.out.println(itemFatura.getValorItemFatura());
 
-        // cartaoCreditoRepository.findById(1);
+        // cartaoCreditoRepository.findById(idCartao);
 
         ItemFaturaDTO dto = new ItemFaturaDTO(itemFatura);
         return dto;

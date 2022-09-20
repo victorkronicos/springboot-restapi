@@ -1,5 +1,7 @@
 package com.victor.springvscode.model;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -38,9 +40,9 @@ public class CartaoCredito {
 
     @JsonProperty("limite_cartao_credito")
     @Column(name = "limite_cartao_credito", nullable = false, columnDefinition = "decimal(10,2)")
-    private Float limiteCartaoCredito;
+    private BigDecimal limiteCartaoCredito;
 
     @JsonProperty("saldo_cartao_credito")
     @Column(nullable = false, columnDefinition = "decimal(10,2)")
-    private Float saldoCartaoCredito = (float) 0;
+    private BigDecimal saldoCartaoCredito;
 }

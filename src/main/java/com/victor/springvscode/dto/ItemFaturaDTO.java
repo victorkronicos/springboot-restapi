@@ -1,7 +1,10 @@
 package com.victor.springvscode.dto;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.victor.springvscode.model.ItemFatura;
+import com.victor.springvscode.model.CartaoCredito;
 
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -15,7 +18,7 @@ public @Data class ItemFaturaDTO {
     private String descricaoItemFatura;
 
     @JsonProperty("valor")
-    private Float valorItemFatura;
+    private BigDecimal valorItemFatura;
 
     @JsonProperty("fatura")
     private Integer fatura;
