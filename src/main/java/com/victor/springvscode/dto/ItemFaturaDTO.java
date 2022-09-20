@@ -7,7 +7,11 @@ import com.victor.springvscode.model.ItemFatura;
 
 import jakarta.persistence.Id;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public @Data class ItemFaturaDTO {
     @Id
     @JsonProperty("id")

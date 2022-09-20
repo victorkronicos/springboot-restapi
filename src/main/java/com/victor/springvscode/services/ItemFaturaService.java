@@ -31,14 +31,15 @@ public class ItemFaturaService {
      */
 
     public ItemFaturaDTO addNew(ItemFatura itemFatura) {
-        int idFatura = itemFatura.getFatura().getIdFatura();
-        // int idCartao = itemFatura.getCartaoCredito().getIdCartaoCredito();
+        // System.out.println(itemFatura);
 
-        // if (!checkVencimentoFatura(idFatura)) {
+        // if (!checkVencimentoFatura(vencimentoFatura)) {
         // return null;
         // }
 
-        // itemFaturaRepository.save(itemFatura);
+        // int idCartao = itemFatura.getCartaoCredito().getIdCartaoCredito();
+
+        itemFaturaRepository.save(itemFatura);
 
         ItemFaturaDTO dto = new ItemFaturaDTO(itemFatura);
         return dto;
@@ -49,12 +50,7 @@ public class ItemFaturaService {
      * @param itemFatura
      * @return Verifica o vencimento da fatura se é maior que a data atual
      */
-    public Boolean checkVencimentoFatura(int idFatura) {
-        LocalDate vencimentoFatura = faturaRepository
-                .findById(idFatura)
-                .get()
-                .getDataVencimento();
-
+    public Boolean checkVencimentoFatura(LocalDate vencimentoFatura) {
         return vencimentoFatura.isAfter(LocalDate.now());
     }
 
