@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.victor.springvscode.model.ItemFatura;
-import com.victor.springvscode.model.CartaoCredito;
 
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -24,13 +23,13 @@ public @Data class ItemFaturaDTO {
     private Integer fatura;
 
     @JsonProperty("cartao_credito")
-    private Integer cartaoCredito;
+    private Integer idCartao;
 
     public ItemFaturaDTO(ItemFatura itemFatura) {
         idItemFatura = itemFatura.getIdItemFatura();
         descricaoItemFatura = itemFatura.getDescricaoItemFatura();
         valorItemFatura = itemFatura.getValorItemFatura();
         fatura = itemFatura.getFatura().getIdFatura();
-        cartaoCredito = itemFatura.getCartaoCredito().getIdCartaoCredito();
+        idCartao = itemFatura.getCartaoCredito().getIdCartaoCredito();
     }
 }

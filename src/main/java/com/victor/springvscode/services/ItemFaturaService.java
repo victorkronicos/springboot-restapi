@@ -1,9 +1,7 @@
 package com.victor.springvscode.services;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.util.Locale;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,13 +34,11 @@ public class ItemFaturaService {
         int idFatura = itemFatura.getFatura().getIdFatura();
         // int idCartao = itemFatura.getCartaoCredito().getIdCartaoCredito();
 
-        if (!checkVencimentoFatura(idFatura)) {
-            return null;
-        }
+        // if (!checkVencimentoFatura(idFatura)) {
+        // return null;
+        // }
 
-        System.out.println(itemFatura.getValorItemFatura());
-
-        // cartaoCreditoRepository.findById(idCartao);
+        // itemFaturaRepository.save(itemFatura);
 
         ItemFaturaDTO dto = new ItemFaturaDTO(itemFatura);
         return dto;
@@ -60,6 +56,21 @@ public class ItemFaturaService {
                 .getDataVencimento();
 
         return vencimentoFatura.isAfter(LocalDate.now());
+    }
+
+    public List<ItemFaturaDTO> findAll() {
+        // List<ItemFaturaDTO> dtos = new ArrayList<>();
+
+        // int x = 2;
+
+        // List<ItemFatura> itens = itemFaturaRepository.findByFatura_idFatura(x);
+
+        // itens.stream().forEach(item -> {
+        // ItemFaturaDTO dto = new ItemFaturaDTO(item);
+        // dtos.add(dto);
+        // });
+
+        return null;
     }
 
 }

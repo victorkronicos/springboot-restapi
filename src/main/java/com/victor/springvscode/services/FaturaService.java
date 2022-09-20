@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.victor.springvscode.dto.FaturaDTO;
 import com.victor.springvscode.model.Fatura;
+import com.victor.springvscode.repository.CartaoCreditoRepository;
 import com.victor.springvscode.repository.FaturaRepository;
 import com.victor.springvscode.repository.ItemFaturaRepository;
 
@@ -17,29 +18,13 @@ public class FaturaService {
     @Autowired
     ItemFaturaRepository itemFaturaRepository;
 
+    @Autowired
+    CartaoCreditoRepository cartaoCreditoRepository;
+
     public FaturaDTO addNew(Fatura fatura) {
         faturaRepository.save(fatura);
         FaturaDTO dto = new FaturaDTO(fatura);
         return dto;
     }
 
-    /**
-     * @param id
-     * @return Consulta de valor parcial de uma fatura em aberto passando o
-     *         ID_FATURA como
-     *         parâmetro
-     *         • Validar a data de vencimento para saber se a fatura está em aberto,
-     *         se sim
-     *         retornar o valor parcial da fatura
-     */
-    public FaturaDTO findById(int id) {
-        // List<ItemFatura> itensFaturas =
-        // itemFaturaRepository.findByFatura_idFatura(id);
-
-        // itensFaturas.stream().forEach(itemFatura -> {
-
-        // });
-
-        return null;
-    }
 }

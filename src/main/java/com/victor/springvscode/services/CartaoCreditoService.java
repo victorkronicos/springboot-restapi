@@ -9,12 +9,20 @@ import org.springframework.stereotype.Service;
 import com.victor.springvscode.dto.CartaoCreditoDTO;
 import com.victor.springvscode.model.CartaoCredito;
 import com.victor.springvscode.repository.CartaoCreditoRepository;
+import com.victor.springvscode.repository.FaturaRepository;
+import com.victor.springvscode.repository.ItemFaturaRepository;
 
 @Service
 public class CartaoCreditoService {
 
     @Autowired
     CartaoCreditoRepository cartaoCreditoRepository;
+
+    @Autowired
+    FaturaRepository faturaRepository;
+
+    @Autowired
+    ItemFaturaRepository itemFaturaRepository;
 
     /**
      * 

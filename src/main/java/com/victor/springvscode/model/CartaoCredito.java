@@ -1,6 +1,7 @@
 package com.victor.springvscode.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +29,7 @@ import lombok.ToString;
 public class CartaoCredito {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
+    @JsonProperty("id_cartao_credito")
     @Column(name = "id_cartao_credito")
     private Integer idCartaoCredito;
 
@@ -45,4 +48,5 @@ public class CartaoCredito {
     @JsonProperty("saldo_cartao_credito")
     @Column(nullable = false, columnDefinition = "decimal(10,2)")
     private BigDecimal saldoCartaoCredito;
+
 }
