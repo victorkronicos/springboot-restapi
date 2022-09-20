@@ -37,15 +37,18 @@ public class ItemFaturaService {
     public ItemFaturaDTO addNew(ItemFatura itemFatura) {
         int idFatura = itemFatura.getFatura().getIdFatura();
         int idCartao = itemFatura.getCartaoCredito().getIdCartaoCredito();
-        BigDecimal limiteCartao = getLimiteCartao(idCartao);
+        BigDecimal saldoCartao = getSaldoCartao(idCartao);
+        BigDecimal valorItemFatura = itemFatura.getValorItemFatura();
 
         if (!checkVencimentoFatura(idFatura)) {
             return null;
         }
 
-        if (limiteCartao.compareTo(itemFatura.getValorItemFatura()) == -1) {
+        if (saldoCartao.compareTo(valorItemFatura) == -1) {
             return null;
         }
+
+        updateFatura(idCartao, valorItemFatura);
 
         itemFaturaRepository.save(itemFatura);
 
@@ -65,14 +68,22 @@ public class ItemFaturaService {
     }
 
     /**
-     * @return Consulta o Limite do cartão através do seu ID
+     * @return Consulta o Saldo do cartão através do seu ID
      */
-    public BigDecimal getLimiteCartao(int idCartao) {
+    public BigDecimal getSaldoCartao(int idCartao) {
         Optional<CartaoCredito> cartao = cartaoCreditoRepository.findById(idCartao);
         if (!cartao.isPresent()) {
             return null;
         }
-        return cartao.get().getLimiteCartaoCredito();
+        return cartao.get().getSaldoCartaoCredito();
+    }
+
+    public void updateFatura(int idCartao, BigDecimal valorItemFatura) {
+        BigDecimal saldoAnterior = cartaoCreditoRepository.findById(idCartao).get().getSaldoCartaoCredito();
+
+        BigDecimal novoSaldo = saldoAnterior.subtract(valorItemFatura);
+
+        cartaoCreditoRepository.findById(idCartao).get().setSaldoCartaoCredito(novoSaldo);
     }
 
     public List<ItemFaturaDTO> findAll() {
