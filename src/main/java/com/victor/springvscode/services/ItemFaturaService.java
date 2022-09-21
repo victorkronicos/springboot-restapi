@@ -41,10 +41,12 @@ public class ItemFaturaService {
         BigDecimal saldoCartao = getSaldoCartao(idCartao);
         BigDecimal valorItemFatura = itemFatura.getValorItemFatura();
 
+        // Não permite adicionar itens à uma fatura vencida
         if (!checkVencimentoFatura(idFatura)) {
             return null;
         }
 
+        // Não permite adicionar itens com valor maior que o saldo
         if (saldoCartao.compareTo(valorItemFatura) == -1) {
             return null;
         }

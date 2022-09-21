@@ -1,5 +1,6 @@
 package com.victor.springvscode.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,9 +15,12 @@ public @Data class FaturaDTO {
     @JsonProperty("vencimento")
     private LocalDate dataVencimento;
 
+    @JsonProperty("valor")
+    private BigDecimal valorFatura;
+
     public FaturaDTO(Fatura fatura) {
         idFatura = fatura.getIdFatura();
         dataVencimento = fatura.getDataVencimento();
+        valorFatura = fatura.getValorFatura();
     }
-
 }

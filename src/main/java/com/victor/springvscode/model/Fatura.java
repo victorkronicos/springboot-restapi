@@ -1,5 +1,6 @@
 package com.victor.springvscode.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -41,5 +42,8 @@ public class Fatura {
     @JsonProperty("id_item_fatura")
     @JoinColumn(name = "id_fatura")
     private List<ItemFatura> itemFatura;
+
+    @JsonProperty("valor_fatura")
+    private BigDecimal valorFatura;
 
 }

@@ -8,4 +8,5 @@ import com.victor.springvscode.model.Fatura;
 @Repository
 public interface FaturaRepository extends JpaRepository<Fatura, Integer> {
 
+    public Fatura findByIdFatura(Integer idFatura);
 }

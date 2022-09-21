@@ -36,8 +36,8 @@ public class FaturaController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<FaturaDTO> findById(@PathVariable int id) {
-        FaturaDTO response = faturaService.findById(id);
+    public ResponseEntity<FaturaDTO> findFaturaById(@PathVariable int id) {
+        FaturaDTO response = faturaService.findFaturaById(id);
         if (response != null) {
             return new ResponseEntity<FaturaDTO>(response, HttpStatus.OK);
         }
