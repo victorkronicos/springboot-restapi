@@ -24,30 +24,39 @@ public class CartaoCreditoController {
     CartaoCreditoService cartaoCreditoService;
 
     /**
-     * @return Retorna todos os Cartões de Crédito armazenados no banco de dados
+     * @return Retorna todos os Cartões de Crédito armazenados
      */
     @GetMapping("/")
     public ResponseEntity<List<CartaoCreditoDTO>> showAll() {
         List<CartaoCreditoDTO> response = cartaoCreditoService.showAll();
-        return new ResponseEntity<List<CartaoCreditoDTO>>(response, HttpStatus.OK);
+        if (response != null) {
+            return new ResponseEntity<List<CartaoCreditoDTO>>(response, HttpStatus.OK);
+        }
+        return new ResponseEntity<List<CartaoCreditoDTO>>(response, HttpStatus.NOT_FOUND);
     }
 
     /**
-     * @return Consulta Saldo e Limite de um CartaoCredito
+     * @return Consulta Saldo e Limite de um Cartão de Crédito
      */
     @GetMapping("/{id}")
     public ResponseEntity<CartaoCreditoDTO> findById(@PathVariable int id) {
         CartaoCreditoDTO response = cartaoCreditoService.findById(id);
-        return new ResponseEntity<CartaoCreditoDTO>(response, HttpStatus.OK);
+        if (response != null) {
+            return new ResponseEntity<CartaoCreditoDTO>(response, HttpStatus.OK);
+        }
+        return new ResponseEntity<CartaoCreditoDTO>(response, HttpStatus.NOT_FOUND);
     }
 
     /**
-     * @return Armazena um novo CartaoCredito
+     * @return Insere um novo Cartão de Crédito
      */
     @PostMapping("/")
     public ResponseEntity<CartaoCreditoDTO> addNew(@RequestBody CartaoCredito cartaoCredito) {
         CartaoCreditoDTO response = cartaoCreditoService.addNew(cartaoCredito);
-        return new ResponseEntity<CartaoCreditoDTO>(response, HttpStatus.CREATED);
+        if (response != null) {
+            return new ResponseEntity<CartaoCreditoDTO>(response, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<CartaoCreditoDTO>(response, HttpStatus.NOT_FOUND);
     }
 
 }

@@ -27,4 +27,8 @@ public class FaturaService {
         return dto;
     }
 
+    public FaturaDTO findById(int id) {
+        return null;
+    }
+
 }

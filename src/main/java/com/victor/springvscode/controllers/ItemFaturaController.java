@@ -24,9 +24,7 @@ public class ItemFaturaController {
     private ItemFaturaService itemFaturaService;
 
     /**
-     * Inserir um novo item à Fatura
-     * 
-     * @return
+     * Insere um novo item à Fatura
      */
     @PostMapping("/")
     public ResponseEntity<ItemFaturaDTO> addNew(@RequestBody ItemFatura itemFatura) {
@@ -37,6 +35,11 @@ public class ItemFaturaController {
         return new ResponseEntity<ItemFaturaDTO>(response, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Consulta itens da Fatura de um cartão através do ID do Cartão
+     * 
+     * @param id
+     */
     @GetMapping("/cartao/{id}")
     public ResponseEntity<List<ItemFaturaDTO>> findFaturasById(@PathVariable int id) {
         List<ItemFaturaDTO> response = itemFaturaService.findFaturasById(id);
