@@ -17,7 +17,7 @@ import com.victor.springvscode.model.CartaoCredito;
 import com.victor.springvscode.services.CartaoCreditoService;
 
 @RestController
-@RequestMapping("/cartao-credito")
+@RequestMapping("/cartao")
 public class CartaoCreditoController {
 
     @Autowired

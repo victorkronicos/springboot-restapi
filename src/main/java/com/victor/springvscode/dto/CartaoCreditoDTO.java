@@ -11,7 +11,7 @@ public @Data class CartaoCreditoDTO {
     @JsonProperty("id")
     private Integer idCartaoCredito;
 
-    @JsonProperty("nome_titular")
+    @JsonProperty("titular")
     private String nomeCartaoCredito;
 
     @JsonProperty("bandeira")

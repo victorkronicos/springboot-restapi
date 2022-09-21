@@ -2,8 +2,11 @@ package com.victor.springvscode.services;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,6 +81,11 @@ public class ItemFaturaService {
         return cartao.get().getSaldoCartaoCredito();
     }
 
+    /**
+     * 
+     * @param idCartao
+     * @param valorItemFatura
+     */
     public void updateFatura(int idCartao, BigDecimal valorItemFatura) {
         BigDecimal saldoAnterior = cartaoCreditoRepository.findById(idCartao).get().getSaldoCartaoCredito();
 
@@ -86,8 +94,25 @@ public class ItemFaturaService {
         cartaoCreditoRepository.findById(idCartao).get().setSaldoCartaoCredito(novoSaldo);
     }
 
-    public List<ItemFaturaDTO> findAll() {
-        return null;
+    /**
+     * @param idFatura
+     * @return Retorna items da fatura do cartão, recebendo como argumento o ID do
+     *         Cartão de Crédito
+     */
+    public List<ItemFaturaDTO> findFaturasById(int idCartao) {
+        List<ItemFaturaDTO> dtos = new ArrayList<>();
+        List<ItemFatura> Items = itemFaturaRepository.findByCartaoCredito_idCartaoCredito(idCartao);
+
+        if (Items.isEmpty()) {
+            return null;
+        }
+
+        Items.stream().forEach(item -> {
+            ItemFaturaDTO dto = new ItemFaturaDTO(item);
+            dtos.add(dto);
+        });
+
+        return dtos;
     }
 
 }
