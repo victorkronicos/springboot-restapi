@@ -28,6 +28,7 @@ public class FaturaService {
     CartaoCreditoRepository cartaoCreditoRepository;
 
     public FaturaDTO addNew(Fatura fatura) {
+        // Validação do corpo da requisição
         if (fatura.getDataVencimento() == null) {
             return null;
         }
@@ -43,10 +44,12 @@ public class FaturaService {
         List<ItemFatura> Items = itemFaturaRepository.findByFatura_idFatura(idFatura);
         List<BigDecimal> soma = new ArrayList<>();
 
+        // Validação se a fatura existe
         if (fatura == null) {
             return null;
         }
 
+        // Validação se a fatura existir mas se não houverem itens
         if (Items.isEmpty()) {
             FaturaDTO dto = new FaturaDTO(fatura);
             dto.setIdFatura(idFatura);
@@ -69,7 +72,6 @@ public class FaturaService {
         if (dto.getDataVencimento().isBefore(LocalDate.now())) {
             return null;
         }
-
         return dto;
     }
 

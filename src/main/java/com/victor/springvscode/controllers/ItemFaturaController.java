@@ -16,6 +16,8 @@ import com.victor.springvscode.dto.ItemFaturaDTO;
 import com.victor.springvscode.model.ItemFatura;
 import com.victor.springvscode.services.ItemFaturaService;
 
+import net.minidev.json.JSONObject;
+
 @RestController
 @RequestMapping("/item-fatura")
 public class ItemFaturaController {
@@ -27,12 +29,16 @@ public class ItemFaturaController {
      * Insere um novo item à Fatura
      */
     @PostMapping("/")
-    public ResponseEntity<ItemFaturaDTO> addNew(@RequestBody ItemFatura itemFatura) {
+    public ResponseEntity<?> addNew(@RequestBody ItemFatura itemFatura) {
         ItemFaturaDTO response = itemFaturaService.addNew(itemFatura);
         if (response != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
-        return ResponseEntity.notFound().build();
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("message",
+                "Não foi possível processar sua compra.");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(jsonObject);
     }
 
     /**
@@ -41,11 +47,13 @@ public class ItemFaturaController {
      * @param id
      */
     @GetMapping("/cartao/{id}")
-    public ResponseEntity<List<ItemFaturaDTO>> findFaturasById(@PathVariable int id) {
+    public ResponseEntity<?> findFaturasById(@PathVariable int id) {
         List<ItemFaturaDTO> response = itemFaturaService.findFaturasById(id);
         if (response != null) {
             return ResponseEntity.ok().body(response);
         }
-        return ResponseEntity.notFound().build();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("message", "Nenhuma fatura vinculada a este cartão.");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(jsonObject);
     }
 }

@@ -31,7 +31,11 @@ public class CartaoCreditoService {
      * @return Adiciona um novo cartão de crédito ao banco de dados
      */
     public CartaoCreditoDTO addNew(CartaoCredito cartaoCredito) {
-        if (cartaoCredito.getNomeCartaoCredito() == null) {
+        // Validação do corpo da requisição
+        if (cartaoCredito.getNomeCartaoCredito() == null ||
+                cartaoCredito.getBandeiraCartaoCredito() == null ||
+                cartaoCredito.getLimiteCartaoCredito() == null ||
+                cartaoCredito.getSaldoCartaoCredito() == null) {
             return null;
         }
 
@@ -46,9 +50,8 @@ public class CartaoCreditoService {
      */
     public List<CartaoCreditoDTO> showAll() {
         List<CartaoCreditoDTO> dtos = new ArrayList<>();
-
         List<CartaoCredito> cartoes = cartaoCreditoRepository.findAll();
-
+        // Validação se cartoes é vazio
         if (cartoes.isEmpty()) {
             return null;
         }
@@ -57,13 +60,12 @@ public class CartaoCreditoService {
             CartaoCreditoDTO dto = new CartaoCreditoDTO(cartao);
             dtos.add(dto);
         });
-
         return dtos;
     }
 
     public CartaoCreditoDTO findById(int id) {
         Optional<CartaoCredito> cartao = cartaoCreditoRepository.findById(id);
-
+        // Validação se cartao é vazio
         if (cartao.isEmpty()) {
             return null;
         }

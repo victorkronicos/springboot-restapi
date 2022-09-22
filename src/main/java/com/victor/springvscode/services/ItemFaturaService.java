@@ -7,7 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.victor.springvscode.dto.ItemFaturaDTO;
 import com.victor.springvscode.model.CartaoCredito;
@@ -16,6 +20,8 @@ import com.victor.springvscode.model.ItemFatura;
 import com.victor.springvscode.repository.CartaoCreditoRepository;
 import com.victor.springvscode.repository.FaturaRepository;
 import com.victor.springvscode.repository.ItemFaturaRepository;
+
+import net.minidev.json.JSONObject;
 
 @Service
 public class ItemFaturaService {
@@ -40,6 +46,13 @@ public class ItemFaturaService {
         int idCartao = itemFatura.getCartaoCredito().getIdCartaoCredito();
         BigDecimal saldoCartao = getSaldoCartao(idCartao);
         BigDecimal valorItemFatura = itemFatura.getValorItemFatura();
+
+        if (itemFatura.getDescricaoItemFatura() == null ||
+                itemFatura.getValorItemFatura() == null ||
+                itemFatura.getCartaoCredito().getIdCartaoCredito() == null ||
+                itemFatura.getFatura().getIdFatura() == null) {
+            return null;
+        }
 
         // Não permite adicionar itens à uma fatura vencida
         if (!checkVencimentoFatura(idFatura)) {
