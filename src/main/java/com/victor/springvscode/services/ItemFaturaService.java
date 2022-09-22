@@ -19,8 +19,6 @@ import com.victor.springvscode.repository.CartaoCreditoRepository;
 import com.victor.springvscode.repository.FaturaRepository;
 import com.victor.springvscode.repository.ItemFaturaRepository;
 
-import net.minidev.json.JSONObject;
-
 @Service
 public class ItemFaturaService {
 
