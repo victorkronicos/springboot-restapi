@@ -3,6 +3,7 @@ package com.victor.springvscode.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.victor.springvscode.model.Fatura;
 
@@ -13,6 +14,7 @@ public @Data class FaturaDTO {
     private Integer idFatura;
 
     @JsonProperty("vencimento")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataVencimento;
 
     @JsonProperty("valor")

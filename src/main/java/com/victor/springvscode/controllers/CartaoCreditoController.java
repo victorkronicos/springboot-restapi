@@ -44,6 +44,7 @@ public class CartaoCreditoController {
         if (response != null) {
             return new ResponseEntity<CartaoCreditoDTO>(response, HttpStatus.OK);
         }
+
         return new ResponseEntity<CartaoCreditoDTO>(response, HttpStatus.NOT_FOUND);
     }
 

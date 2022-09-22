@@ -44,6 +44,10 @@ public class CartaoCreditoService {
 
         List<CartaoCredito> cartoes = cartaoCreditoRepository.findAll();
 
+        if (cartoes.isEmpty()) {
+            return null;
+        }
+
         cartoes.stream().forEach(cartao -> {
             CartaoCreditoDTO dto = new CartaoCreditoDTO(cartao);
             dtos.add(dto);
@@ -56,6 +60,7 @@ public class CartaoCreditoService {
         CartaoCredito cartao = cartaoCreditoRepository.findById(id).get();
 
         CartaoCreditoDTO dto = new CartaoCreditoDTO(cartao);
+
         return dto;
     }
 

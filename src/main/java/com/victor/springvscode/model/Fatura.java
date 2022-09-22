@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -35,6 +36,7 @@ public class Fatura {
     private Integer idFatura;
 
     @JsonProperty("data_vencimento")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @Column(name = "data_vencimento", nullable = false, columnDefinition = "date")
     private LocalDate dataVencimento;
 
