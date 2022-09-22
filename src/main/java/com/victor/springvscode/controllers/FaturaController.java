@@ -14,6 +14,8 @@ import com.victor.springvscode.dto.FaturaDTO;
 import com.victor.springvscode.model.Fatura;
 import com.victor.springvscode.services.FaturaService;
 
+import net.minidev.json.JSONObject;
+
 @RestController
 @RequestMapping(value = "/fatura")
 public class FaturaController {
@@ -27,20 +29,26 @@ public class FaturaController {
      * @return Insere uma nova Fatura
      */
     @PostMapping(value = "/")
-    public ResponseEntity<FaturaDTO> addNew(@RequestBody Fatura fatura) {
+    public ResponseEntity<?> addNew(@RequestBody Fatura fatura) {
         FaturaDTO response = faturaService.addNew(fatura);
         if (response != null) {
-            return new ResponseEntity<FaturaDTO>(response, HttpStatus.CREATED);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
-        return new ResponseEntity<FaturaDTO>(response, HttpStatus.NOT_FOUND);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("message", "Não foi possível realizar esta operação.");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(jsonObject);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<FaturaDTO> findFaturaById(@PathVariable int id) {
+    public ResponseEntity<?> findFaturaById(@PathVariable int id) {
         FaturaDTO response = faturaService.findFaturaById(id);
         if (response != null) {
-            return new ResponseEntity<FaturaDTO>(response, HttpStatus.OK);
+            return ResponseEntity.ok().body(response);
         }
-        return new ResponseEntity<FaturaDTO>(response, HttpStatus.NOT_FOUND);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("message", "Fatura não encontrada.");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(jsonObject);
     }
 }

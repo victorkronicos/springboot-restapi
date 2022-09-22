@@ -30,9 +30,9 @@ public class ItemFaturaController {
     public ResponseEntity<ItemFaturaDTO> addNew(@RequestBody ItemFatura itemFatura) {
         ItemFaturaDTO response = itemFaturaService.addNew(itemFatura);
         if (response != null) {
-            return new ResponseEntity<ItemFaturaDTO>(response, HttpStatus.CREATED);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
-        return new ResponseEntity<ItemFaturaDTO>(response, HttpStatus.NOT_FOUND);
+        return ResponseEntity.notFound().build();
     }
 
     /**
@@ -44,8 +44,8 @@ public class ItemFaturaController {
     public ResponseEntity<List<ItemFaturaDTO>> findFaturasById(@PathVariable int id) {
         List<ItemFaturaDTO> response = itemFaturaService.findFaturasById(id);
         if (response != null) {
-            return new ResponseEntity<List<ItemFaturaDTO>>(response, HttpStatus.OK);
+            return ResponseEntity.ok().body(response);
         }
-        return new ResponseEntity<List<ItemFaturaDTO>>(response, HttpStatus.NOT_FOUND);
+        return ResponseEntity.notFound().build();
     }
 }

@@ -28,6 +28,10 @@ public class FaturaService {
     CartaoCreditoRepository cartaoCreditoRepository;
 
     public FaturaDTO addNew(Fatura fatura) {
+        if (fatura.getDataVencimento() == null) {
+            return null;
+        }
+
         faturaRepository.save(fatura);
         FaturaDTO dto = new FaturaDTO(fatura);
         dto.setValorFatura(new BigDecimal(0));
@@ -39,8 +43,16 @@ public class FaturaService {
         List<ItemFatura> Items = itemFaturaRepository.findByFatura_idFatura(idFatura);
         List<BigDecimal> soma = new ArrayList<>();
 
-        if (Items.isEmpty()) {
+        if (fatura == null) {
             return null;
+        }
+
+        if (Items.isEmpty()) {
+            FaturaDTO dto = new FaturaDTO(fatura);
+            dto.setIdFatura(idFatura);
+            dto.setDataVencimento(fatura.getDataVencimento());
+            dto.setValorFatura(new BigDecimal(0));
+            return dto;
         }
 
         FaturaDTO dto = new FaturaDTO(fatura);

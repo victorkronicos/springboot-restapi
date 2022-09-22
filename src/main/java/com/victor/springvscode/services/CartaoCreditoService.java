@@ -2,6 +2,7 @@ package com.victor.springvscode.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,10 @@ public class CartaoCreditoService {
      * @return Adiciona um novo cartão de crédito ao banco de dados
      */
     public CartaoCreditoDTO addNew(CartaoCredito cartaoCredito) {
+        if (cartaoCredito.getNomeCartaoCredito() == null) {
+            return null;
+        }
+
         cartaoCreditoRepository.save(cartaoCredito);
         CartaoCreditoDTO dto = new CartaoCreditoDTO(cartaoCredito);
         return dto;
@@ -57,10 +62,13 @@ public class CartaoCreditoService {
     }
 
     public CartaoCreditoDTO findById(int id) {
-        CartaoCredito cartao = cartaoCreditoRepository.findById(id).get();
+        Optional<CartaoCredito> cartao = cartaoCreditoRepository.findById(id);
 
-        CartaoCreditoDTO dto = new CartaoCreditoDTO(cartao);
+        if (cartao.isEmpty()) {
+            return null;
+        }
 
+        CartaoCreditoDTO dto = new CartaoCreditoDTO(cartao.get());
         return dto;
     }
 

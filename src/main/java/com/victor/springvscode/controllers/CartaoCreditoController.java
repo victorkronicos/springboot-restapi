@@ -16,6 +16,8 @@ import com.victor.springvscode.dto.CartaoCreditoDTO;
 import com.victor.springvscode.model.CartaoCredito;
 import com.victor.springvscode.services.CartaoCreditoService;
 
+import net.minidev.json.JSONObject;
+
 @RestController
 @RequestMapping("/cartao")
 public class CartaoCreditoController {
@@ -27,37 +29,45 @@ public class CartaoCreditoController {
      * @return Retorna todos os Cartões de Crédito armazenados
      */
     @GetMapping("/")
-    public ResponseEntity<List<CartaoCreditoDTO>> showAll() {
+    public ResponseEntity<?> showAll() {
         List<CartaoCreditoDTO> response = cartaoCreditoService.showAll();
         if (response != null) {
-            return new ResponseEntity<List<CartaoCreditoDTO>>(response, HttpStatus.OK);
+            return ResponseEntity.ok().body(response);
         }
-        return new ResponseEntity<List<CartaoCreditoDTO>>(response, HttpStatus.NOT_FOUND);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("message", "Nenhum Cartão de Crédito encontrado.");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(jsonObject);
     }
 
     /**
      * @return Consulta Saldo e Limite de um Cartão de Crédito
      */
     @GetMapping("/{id}")
-    public ResponseEntity<CartaoCreditoDTO> findById(@PathVariable int id) {
+    public ResponseEntity<?> findById(@PathVariable int id) {
         CartaoCreditoDTO response = cartaoCreditoService.findById(id);
         if (response != null) {
-            return new ResponseEntity<CartaoCreditoDTO>(response, HttpStatus.OK);
+            return ResponseEntity.ok().body(response);
         }
 
-        return new ResponseEntity<CartaoCreditoDTO>(response, HttpStatus.NOT_FOUND);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("message", "Cartão de Crédito não encontrado.");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(jsonObject);
     }
 
     /**
      * @return Insere um novo Cartão de Crédito
      */
     @PostMapping("/")
-    public ResponseEntity<CartaoCreditoDTO> addNew(@RequestBody CartaoCredito cartaoCredito) {
+    public ResponseEntity<?> addNew(@RequestBody CartaoCredito cartaoCredito) {
         CartaoCreditoDTO response = cartaoCreditoService.addNew(cartaoCredito);
         if (response != null) {
-            return new ResponseEntity<CartaoCreditoDTO>(response, HttpStatus.CREATED);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
-        return new ResponseEntity<CartaoCreditoDTO>(response, HttpStatus.NOT_FOUND);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("message", "Não foi possível realizar esta operação.");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(jsonObject);
     }
 
 }
