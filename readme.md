@@ -97,3 +97,9 @@ Enviar o seguinte contrato no corpo da requisição:
   }
 }
 ```
+
+#### Consulta uma Fatura por Cartão
+
+```http
+  POST /item-fatura/cartao/{id}
+```
